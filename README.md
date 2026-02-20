@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🐨 Koala Web (Dashboard + Playground)
 
-## Getting Started
+This repository contains the web dashboard and interactive playground for Koala, a privacy-first, self-hosted uptime monitoring tool.
 
-First, run the development server:
+The playground is designed to showcase the UI and real-time experience of Koala without requiring a full self-hosted setup.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ What the Playground Demonstrates
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Real-time SSE event streaming (live updates)
+- Live latency line charts and status transitions
+- Endpoint monitoring interface and UX
+- Developer-first dashboard design
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔒 Privacy & How Requests Work
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The playground does **not store, log, or persist** any of the endpoints you test.
 
-## Learn More
+All monitoring requests in playground mode are:
+- Executed directly from your browser
+- Not stored on any server
+- Not saved in any database
+- Not used for analytics or tracking
 
-To learn more about Next.js, take a look at the following resources:
+This means your test endpoints remain local to your session and infrastructure visibility is not retained by the playground.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ⚠️ Playground Limitations
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Since this is a browser-based demo, it has a few intentional limitations:
 
-## Deploy on Vercel
+### 1. CORS Restrictions
+Endpoint checks are performed from your browser, so the target API must allow CORS.
+If CORS is blocked, requests may fail even if the endpoint is actually healthy.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+> Tip: For best results, test endpoints that allow cross-origin requests or use public APIs.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 2. No Persistent Monitoring Jobs
+The playground does **not run background monitoring** or scheduled checks.  
+It only demonstrates real-time UI behavior.
+
+### 3. No Email Alerts
+Alerting (SMTP) is disabled in playground mode and only available in the self-hosted version.
+
+### 4. Ephemeral Data
+All data shown in the playground is temporary and may reset on refresh or new sessions.
+
+### 5. Not Intended for Production Use
+The playground is for exploration and UI testing only, not for real infrastructure monitoring.
+
+## 🚀 For Full Self-Hosted Monitoring
+
+To run Koala with:
+- Persistent monitoring jobs
+- Email alerts (SMTP)
+- SQLite storage
+- Production-grade uptime tracking
+
+Use the core server repository instead.
+
+> ⚠️ This repository is the web/playground version only.  
+> To self-host Koala with alerts and monitoring jobs, use the core server repo.

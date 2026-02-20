@@ -4,10 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import GraphModal from "../GraphModal";
 import { PlaygroundModal } from "./PlaygroundModal";
 import { pingEndpoint } from "@/app/lib/playground/ping";
-import type {
-  PlaygroundMonitor,
-  GraphPoint,
-} from "@/app/lib/playground/types";
+import type { PlaygroundMonitor, GraphPoint } from "@/app/lib/playground/types";
 import {
   loadMonitorsFromStorage,
   saveMonitorsToStorage,
@@ -16,20 +13,26 @@ import {
 import toast from "react-hot-toast";
 
 export default function PlaygroundDashboard() {
-  const [monitors, setMonitors] = useState<PlaygroundMonitor[]>([]);
+  const [monitors, setMonitors] = useState<PlaygroundMonitor[]>(() => {
+    if (typeof window === "undefined") return [];
+    return loadMonitorsFromStorage();
+  });
   const [modalMode, setModalMode] = useState<
     { type: "create" } | { type: "edit"; monitor: PlaygroundMonitor } | null
   >(null);
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    if (typeof window === "undefined") return "dark";
+    const theme = localStorage.getItem("koala-theme")
+    if (theme == "dark") { return "dark"}
+    else { return "light"}
+  });
   const [graphMonitorId, setGraphMonitorId] = useState<string | null>(null);
   const [graphData, setGraphData] = useState<GraphPoint[]>([]);
   const graphMonitorRef = useRef<string | null>(null);
-  const intervalRefs = useRef<Map<string, ReturnType<typeof setInterval>>>(new Map());
+  const intervalRefs = useRef<Map<string, ReturnType<typeof setInterval>>>(
+    new Map(),
+  );
   const graphHistoryRef = useRef<Map<string, GraphPoint[]>>(new Map());
-
-  useEffect(() => {
-    setMonitors(loadMonitorsFromStorage());
-  }, []);
 
   useEffect(() => {
     saveMonitorsToStorage(monitors);
@@ -43,63 +46,67 @@ export default function PlaygroundDashboard() {
     graphMonitorRef.current = graphMonitorId;
   }, [graphMonitorId]);
 
-  const runPing = useCallback(
-    async (m: PlaygroundMonitor) => {
-      let headers: Record<string, string> | undefined;
-      if (m.headers && Object.keys(m.headers).length > 0) {
-        headers = m.headers;
-      }
+  const runPing = useCallback(async (m: PlaygroundMonitor) => {
+    let headers: Record<string, string> | undefined;
+    if (m.headers && Object.keys(m.headers).length > 0) {
+      headers = m.headers;
+    }
 
-      const result = await pingEndpoint(
-        m.endpoint,
-        m.method,
-        m.expected_status,
-        headers,
-        m.body
-      );
+    const result = await pingEndpoint(
+      m.endpoint,
+      m.method,
+      m.expected_status,
+      headers,
+      m.body,
+    );
 
-      const point: GraphPoint = {
-        timestamp: Date.now(),
-        latency: result.latency,
-        success: result.success,
-      };
+    const point: GraphPoint = {
+      timestamp: Date.now(),
+      latency: result.latency,
+      success: result.success,
+    };
 
-      setMonitors((prev) =>
-        prev.map((mon) =>
-          mon.id === m.id
-            ? {
-                ...mon,
-                success: result.success,
-                statusCode: result.statusCode,
-                latency: result.latency,
-              }
-            : mon
-        )
-      );
+    setMonitors((prev) =>
+      prev.map((mon) =>
+        mon.id === m.id
+          ? {
+              ...mon,
+              success: result.success,
+              statusCode: result.statusCode,
+              latency: result.latency,
+            }
+          : mon,
+      ),
+    );
 
-      const history = graphHistoryRef.current.get(m.id) ?? [];
-      const updatedHistory = [...history, point].slice(-30);
-      graphHistoryRef.current.set(m.id, updatedHistory);
+    const history = graphHistoryRef.current.get(m.id) ?? [];
+    const updatedHistory = [...history, point].slice(-30);
+    graphHistoryRef.current.set(m.id, updatedHistory);
 
-      if (graphMonitorRef.current === m.id) {
-        setGraphData(updatedHistory);
-      }
-    },
-    []
-  );
+    if (graphMonitorRef.current === m.id) {
+      setGraphData(updatedHistory);
+    }
+  }, []);
 
   // Only re-run interval setup when monitor config changes (add/remove/edit),
   // NOT when success/latency/statusCode updates from pings
   const monitorConfigKey = useMemo(
     () =>
       monitors
-        .map((m) => `${m.id}|${m.endpoint}|${m.method}|${m.interval}|${m.expected_status}`)
+        .map(
+          (m) =>
+            `${m.id}|${m.endpoint}|${m.method}|${m.interval}|${m.expected_status}`,
+        )
         .sort()
         .join(";;"),
     [
       monitors.map((m) => m.id).join(","),
-      monitors.map((m) => `${m.endpoint}|${m.method}|${m.interval}|${m.expected_status}`).join("||"),
-    ]
+      monitors
+        .map(
+          (m) => `${m.endpoint}|${m.method}|${m.interval}|${m.expected_status}`,
+        )
+        .join("||"),
+    ],
   );
 
   useEffect(() => {
@@ -128,7 +135,9 @@ export default function PlaygroundDashboard() {
     setGraphData(history);
   }, [graphMonitorId]);
 
-  const handleAddMonitor = (monitor: Omit<PlaygroundMonitor, "id" | "created_at">) => {
+  const handleAddMonitor = (
+    monitor: Omit<PlaygroundMonitor, "id" | "created_at">,
+  ) => {
     const newMonitor: PlaygroundMonitor = {
       ...monitor,
       id: generateId(),
@@ -139,9 +148,7 @@ export default function PlaygroundDashboard() {
   };
 
   const handleUpdateMonitor = (updated: PlaygroundMonitor) => {
-    setMonitors((prev) =>
-      prev.map((m) => (m.id === updated.id ? updated : m))
-    );
+    setMonitors((prev) => prev.map((m) => (m.id === updated.id ? updated : m)));
     toast.success("Monitor updated");
   };
 
@@ -224,10 +231,7 @@ export default function PlaygroundDashboard() {
       </div>
 
       {graphMonitorId && (
-        <GraphModal
-          data={graphData}
-          onClose={() => setGraphMonitorId(null)}
-        />
+        <GraphModal data={graphData} onClose={() => setGraphMonitorId(null)} />
       )}
     </div>
   );

@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Koala — Self-Hosted API Monitoring",
+  title: "Koala Playground",
   description:
     "Lightweight, self-hosted endpoint monitoring. Real-time status updates, live latency line charts, and smart email alerts.",
 };
@@ -25,14 +25,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){
+          try {
+            var t = localStorage.getItem('koala-theme');
+            var d = t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches);
+            document.documentElement.classList.toggle('dark', d);
+          } catch (e) {}
+        })();`,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
       >
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){var t=localStorage.getItem('koala-theme');var d=t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);})();`,
-          }}
-        />
         {children}
       </body>
     </html>

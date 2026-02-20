@@ -59,7 +59,7 @@ export function Deploy() {
           <div>
             <SectionHeading
               tag="— Quick Deploy"
-              title="Up and running in three steps."
+              title="Up and running in four steps."
               description=""
             />
             <p className="text-[15px] leading-[1.72] text-[var(--koala-muted)] mb-10">
