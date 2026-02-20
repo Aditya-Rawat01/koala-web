@@ -4,7 +4,7 @@ type ButtonVariant = "primary" | "ghost";
 type ButtonSize = "md" | "lg";
 
 const baseStyles =
-  "inline-flex items-center gap-1.5 rounded-lg font-medium transition-all duration-150 whitespace-nowrap leading-none cursor-pointer";
+   "flex items-center justify-center gap-1.5 rounded-lg font-medium transition-all duration-150 whitespace-nowrap leading-none cursor-pointer";
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
     "bg-[var(--koala-accent)] text-white dark:text-[#0c0c0e] hover:bg-[var(--koala-accent-hover)] hover:-translate-y-px hover:shadow-[0_6px_18px_rgba(74,222,128,0.25)]",
@@ -45,7 +45,7 @@ export function Button({
 
   if (as === "a") {
     return (
-      <a className={classes} {...(props as AnchorHTMLAttributes<HTMLAnchorElement>)}>
+      <a {...(props as AnchorHTMLAttributes<HTMLAnchorElement>)}  className={classes}>
         {children}
       </a>
     );

@@ -20,10 +20,10 @@ const statBoxes = [
 
 export function Privacy() {
   return (
-    <section id="privacy" className="py-20">
+    <section id="privacy" className="py-10">
       <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
         <div
-          className="rounded-[18px] p-14 md:p-12 sm:p-8"
+          className="rounded-[18px] p-4 sm:p-14 md:p-12 sm:p-8"
           style={{
             background: "rgba(74,222,128,0.04)",
             border: "1px solid var(--koala-accent-bdr)",

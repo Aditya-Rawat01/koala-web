@@ -46,7 +46,7 @@ const features = [
 export function Features() {
   return (
     <section id="features" className="py-20">
-      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1320px] mx-auto px-6 lg:px-8">
         <SectionHeading
           tag="— Features"
           title={

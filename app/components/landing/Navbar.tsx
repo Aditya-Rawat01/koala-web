@@ -17,7 +17,7 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] backdrop-blur-2xl bg-[var(--koala-nav-bg)] border-b border-[var(--koala-border)]">
+    <nav className="fixed top-0 left-0 right-0 z-[100] backdrop-blur-2xl bg-[var(--koala-nav-bg)] border-b border-[var(--koala-border)] w-screen">
       <div className="flex items-center justify-between gap-2 sm:gap-4 max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 py-3 min-h-[52px]">
         <Link href="#" className="font-mono text-base font-medium text-[var(--foreground)] flex items-center gap-1.5 shrink-0">
           🐨 Koala
@@ -46,7 +46,7 @@ export function Navbar() {
           <Button as="a" href="/playground" variant="ghost" size="md" className="hidden sm:inline-flex">
             Test in Playground
           </Button>
-          <Button as="a" href="#deploy" variant="primary" size="md">
+          <Button as="a" href="#deploy" variant="primary" size="md" className="hidden sm:inline-flex">
             Get Started
           </Button>
           <button

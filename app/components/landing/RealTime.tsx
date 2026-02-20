@@ -32,7 +32,7 @@ const rtItems = [
 export function RealTime() {
   return (
     <section className="py-20">
-      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1320px] mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-14 items-center">
           <div className="bg-[#f0f0f2] dark:bg-[#09090c] border border-[var(--koala-border)] rounded-xl overflow-hidden font-mono">
             <div className="px-4 py-2.5 border-b border-[var(--koala-border)] flex items-center gap-1.5 text-[11px] text-[var(--koala-muted)]">

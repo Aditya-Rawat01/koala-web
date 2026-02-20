@@ -54,7 +54,7 @@ const sqliteReasons = [
 export function Deploy() {
   return (
     <section id="deploy" className="py-20">
-      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1320px] mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           <div>
             <SectionHeading
@@ -64,14 +64,14 @@ export function Deploy() {
             />
             <p className="text-[15px] leading-[1.72] text-[var(--koala-muted)] mb-10">
               Single container, no orchestration needed. Email alerts are configured via
-              environment variables — pass your SMTP credentials and they work immediately.
+              environment variables. Pass your SMTP credentials and they work immediately.
             </p>
 
             <div className="flex flex-col gap-3">
               {steps.map((s) => (
                 <div
                   key={s.n}
-                  className="grid grid-cols-[40px_1fr] gap-4 items-start bg-[var(--koala-surface)] border border-[var(--koala-border)] rounded-xl px-5 py-5 transition-colors hover:border-[var(--koala-accent-bdr)]"
+                  className="grid grid-cols-1 sm:grid-cols-[40px_1fr] gap-4 items-start bg-[var(--koala-surface)] border border-[var(--koala-border)] rounded-xl px-5 py-5 transition-colors hover:border-[var(--koala-accent-bdr)]"
                 >
                   <div className="font-mono text-[10.5px] font-medium text-[var(--koala-accent)] pt-0.5">
                     {s.n}
