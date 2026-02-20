@@ -1,26 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
 @import "tailwindcss";
 
+/* Class-based dark mode for manual toggle */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafafa;
+  --foreground: #0f172a;
+  --koala-accent: #16a34a;
+  --koala-accent-hover: #15803d;
+  --koala-surface: rgba(0, 0, 0, 0.035);
+  --koala-surface-2: rgba(0, 0, 0, 0.07);
+  --koala-border: rgba(0, 0, 0, 0.1);
+  --koala-muted: rgba(15, 23, 42, 0.7);
+  --koala-code-bg: rgba(0, 0, 0, 0.06);
+  --koala-nav-bg: rgba(250, 250, 250, 0.95);
+  --koala-accent-dim: rgba(22, 163, 74, 0.12);
+  --koala-accent-bdr: rgba(22, 163, 74, 0.3);
+}
+
+.dark {
+  --background: #0f0f12;
+  --foreground: #f1f5f9;
+  --koala-accent: #4ade80;
+  --koala-accent-hover: #22c55e;
+  --koala-surface: rgba(255, 255, 255, 0.04);
+  --koala-surface-2: rgba(255, 255, 255, 0.07);
+  --koala-border: rgba(255, 255, 255, 0.09);
+  --koala-muted: rgba(241, 245, 249, 0.6);
+  --koala-code-bg: rgba(0, 0, 0, 0.4);
+  --koala-nav-bg: rgba(15, 15, 18, 0.88);
+  --koala-accent-dim: rgba(74, 222, 128, 0.09);
+  --koala-accent-bdr: rgba(74, 222, 128, 0.25);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Live pulse animation */
+@keyframes livepulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.5);
+  }
+}
+
+.animate-livepulse {
+  animation: livepulse 2.2s ease-in-out infinite;
+}
+
+/* Fade up animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  opacity: 0;
+  animation: fadeUp 0.5s ease forwards;
 }
