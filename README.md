@@ -1,6 +1,6 @@
 # 🐨 Koala Web (Dashboard + Playground)
-
-This repository contains the web dashboard and interactive playground for Koala, a privacy-first, self-hosted uptime monitoring tool.
+- Core Repo: https://github.com/Aditya-Rawat01/koala-self-deployed
+- This repository contains the web dashboard and interactive playground for Koala, a privacy-first, self-hosted uptime monitoring tool.
 
 The playground is designed to showcase the UI and real-time experience of Koala without requiring a full self-hosted setup.
 
@@ -58,4 +58,4 @@ Use the core server repository instead.
 
 > ⚠️ This repository is the web/playground version only.  
 > To self-host Koala with alerts and monitoring jobs, use the core server repo.
-Core Repo: https://github.com/Aditya-Rawat01/koala-self-deployed
+- Core Repo: https://github.com/Aditya-Rawat01/koala-self-deployed
