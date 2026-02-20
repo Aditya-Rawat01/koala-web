@@ -58,3 +58,4 @@ Use the core server repository instead.
 
 > ⚠️ This repository is the web/playground version only.  
 > To self-host Koala with alerts and monitoring jobs, use the core server repo.
+Core Repo: https://github.com/Aditya-Rawat01/koala-self-deployed
