@@ -22,7 +22,7 @@ const steps = [
     title: "Add SMTP config for email alerts",
     code: `SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
-SMTP_EMAIL=your-email@gmail.com
+SMTP_USER=your-email@gmail.com
 SMTP_PASSWORD=your-app-password`,
     note: "Use a Gmail App Password — not your real password.",
   },
@@ -62,8 +62,9 @@ export function Deploy() {
               description=""
             />
             <p className="text-[15px] leading-[1.72] text-[var(--koala-muted)] mb-10">
-              Single container, no orchestration needed. Email alerts are configured via
-              environment variables. Pass your SMTP credentials and they work immediately.
+              Single container, no orchestration needed. Email alerts are
+              configured via environment variables. Pass your SMTP credentials
+              and they work immediately.
             </p>
 
             <div className="flex flex-col gap-3">
@@ -78,9 +79,9 @@ export function Deploy() {
                   <div>
                     <div className="text-[13.5px] font-semibold text-[var(--foreground)] mb-2 flex justify-between">
                       <p>{s.title}</p>
-                      <CopyButton children={s.code}/>
+                      <CopyButton children={s.code} />
                     </div>
-                    
+
                     <CodeBlock>{s.code}</CodeBlock>
                     {s.note && (
                       <div className="flex items-center gap-1 mt-1.5 text-xs text-[var(--koala-muted)]">
@@ -101,7 +102,8 @@ export function Deploy() {
               description=""
             />
             <p className="text-[15px] leading-[1.72] text-[var(--koala-muted)] mb-8">
-              No magic dependencies. Each piece chosen for reliability and ease of self-hosting.
+              No magic dependencies. Each piece chosen for reliability and ease
+              of self-hosting.
             </p>
 
             <div className="flex flex-wrap gap-2.5">
@@ -124,7 +126,10 @@ export function Deploy() {
                 Why SQLite?
               </div>
               {sqliteReasons.map((item) => (
-                <div key={item} className="flex items-start gap-2 mb-2 last:mb-0">
+                <div
+                  key={item}
+                  className="flex items-start gap-2 mb-2 last:mb-0"
+                >
                   <span className="w-5 h-5 flex-shrink-0 rounded-md bg-[var(--koala-accent-dim)] text-[var(--koala-accent)] flex items-center justify-center mt-0.5">
                     <CheckIcon />
                   </span>
