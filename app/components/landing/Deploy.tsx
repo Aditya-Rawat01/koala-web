@@ -2,20 +2,19 @@
 
 import { InfoIcon, CheckIcon } from "../icons";
 import { CodeBlock } from "../ui/CodeBlock";
+import { CopyButton } from "../ui/CopyButton";
 import { SectionHeading } from "../ui/SectionHeading";
 
 const steps = [
   {
     n: "01",
-    title: "Clone the repository",
-    code: `git clone https://github.com/your-username/koala.git
-cd koala`,
+    title: "Curl the Docker Compose file.",
+    code: `curl -fsSL https://raw.githubusercontent.com/Aditya-Rawat01/koala-self-deployed/main/docker-compose.yml -o docker-compose.yml`,
   },
   {
     n: "02",
     title: "Review the Docker Compose file",
-    code: `cp docker-compose.example.yml docker-compose.yml
-# (optional) edit ports, volumes, and env vars`,
+    code: `edit ports, volumes, and env vars`,
     note: "The compose file includes the API, dashboard, and SQLite volume.",
   },
   {
@@ -77,9 +76,11 @@ export function Deploy() {
                     {s.n}
                   </div>
                   <div>
-                    <div className="text-[13.5px] font-semibold text-[var(--foreground)] mb-2">
-                      {s.title}
+                    <div className="text-[13.5px] font-semibold text-[var(--foreground)] mb-2 flex justify-between">
+                      <p>{s.title}</p>
+                      <CopyButton children={s.code}/>
                     </div>
+                    
                     <CodeBlock>{s.code}</CodeBlock>
                     {s.note && (
                       <div className="flex items-center gap-1 mt-1.5 text-xs text-[var(--koala-muted)]">
